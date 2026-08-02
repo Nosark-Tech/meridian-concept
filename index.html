@@ -407,7 +407,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
           <p class="city">Adelaide · South Australia</p>
           <h3>Three inspectors, metro and hills.</h3>
           <p>Salt damp, footing movement on reactive clay and stormwater at the footing account for most of what gets raised in this state.</p>
-          <p class="badge">● Next available Tuesday</p>
+          <p class="badge" data-lead-days="1">● Typically available within 1–2 days</p>
         </div>
         <div class="sp-right">
           <div class="kv"><span>Inspectors</span><span>3</span></div>
@@ -426,7 +426,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
           <p class="city">Melbourne · Victoria</p>
           <h3>Four inspectors, metro and bayside.</h3>
           <p>Weatherboard stock, balcony waterproofing and subfloor moisture make up much of the Melbourne workload. Handover inspections on new estates are booked in three stages.</p>
-          <p class="badge">● Next available Wednesday</p>
+          <p class="badge" data-lead-days="2">● Typically available within 2–3 days</p>
         </div>
         <div class="sp-right">
           <div class="kv"><span>Inspectors</span><span>4</span></div>
@@ -445,7 +445,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
           <p class="city">Sydney · New South Wales</p>
           <h3>Four inspectors, inner and west.</h3>
           <p>Strata and apartment work dominates here, so reports carry a separate common-property section. Pre-auction inspections are booked around Saturday, not after it.</p>
-          <p class="badge">● Next available tomorrow</p>
+          <p class="badge" data-lead-days="1">● Typically available within 1–3 days</p>
         </div>
         <div class="sp-right">
           <div class="kv"><span>Inspectors</span><span>4</span></div>
@@ -464,7 +464,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
           <p class="city">Brisbane · Queensland</p>
           <h3>Three inspectors, river to bay.</h3>
           <p>Termite pressure is the highest of any state we work in, so every Queensland building inspection is booked with the timber pest inspection attached unless you say otherwise.</p>
-          <p class="badge">● Next available Thursday</p>
+          <p class="badge" data-lead-days="2">● Typically available within 2 days</p>
         </div>
         <div class="sp-right">
           <div class="kv"><span>Inspectors</span><span>3</span></div>
@@ -621,11 +621,29 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     paddington:"qld",chermside:"qld",ipswich:"qld",redcliffe:"qld",carindale:"qld",logan:"qld",brisbane:"qld","4000":"qld","4059":"qld"
   };
   var STATES = {
-    sa:{city:"Adelaide, SA",inspector:"Dan Whitlock",next:"Tuesday",lead:"1 to 2 days",line:"08 0000 0000"},
-    vic:{city:"Melbourne, VIC",inspector:"Priya Raman",next:"Wednesday",lead:"2 to 3 days",line:"03 0000 0000"},
-    nsw:{city:"Sydney, NSW",inspector:"Marcus Fenn",next:"tomorrow",lead:"1 to 3 days",line:"02 0000 0000"},
-    qld:{city:"Brisbane, QLD",inspector:"Ellie Broadbent",next:"Thursday",lead:"2 days",line:"07 0000 0000"}
+    sa:{city:"Adelaide, SA",inspector:"Dan Whitlock",leadDays:1,lead:"1 to 2 days",line:"08 0000 0000"},
+    vic:{city:"Melbourne, VIC",inspector:"Priya Raman",leadDays:2,lead:"2 to 3 days",line:"03 0000 0000"},
+    nsw:{city:"Sydney, NSW",inspector:"Marcus Fenn",leadDays:1,lead:"1 to 3 days",line:"02 0000 0000"},
+    qld:{city:"Brisbane, QLD",inspector:"Ellie Broadbent",leadDays:2,lead:"2 days",line:"07 0000 0000"}
   };
+
+  function nextOpenLabel(leadDays){
+    var d = new Date(), left = Math.max(1, +leadDays || 1);
+    while (left > 0){
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 0) continue; // skip Sundays
+      left--;
+    }
+    var day = d.toLocaleDateString('en-AU', { weekday: 'long' });
+    var today = new Date();
+    var diff = Math.round((d.setHours(0,0,0,0) - today.setHours(0,0,0,0)) / 86400000);
+    if (diff === 1) return 'tomorrow';
+    return day;
+  }
+
+  [].slice.call(document.querySelectorAll('.badge[data-lead-days]')).forEach(function(el){
+    el.textContent = '● Next available ' + nextOpenLabel(el.dataset.leadDays);
+  });
   var input = document.getElementById('suburb'), result = document.getElementById('result');
   var tabs = [].slice.call(document.querySelectorAll('.stab'));
 
@@ -661,7 +679,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
       '<p class="rhead"><span class="tick" aria-hidden="true">\u2713</span> Covered by our ' + s.city + ' team</p>' +
       '<div class="rgrid">' +
         '<div><span>Your inspector</span><b>' + s.inspector + '</b></div>' +
-        '<div><span>Next available</span><b>' + (s.next.charAt(0).toUpperCase() + s.next.slice(1)) + '</b></div>' +
+        '<div><span>Next available</span><b>' + nextOpenLabel(s.leadDays).replace(/^./, function(c){ return c.toUpperCase(); }) + '</b></div>' +
         '<div><span>Booking lead time</span><b>' + s.lead + '</b></div>' +
         '<div><span>Report</span><b>Within 24 hours</b></div>' +
       '</div>';
@@ -685,24 +703,22 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     });
   });
 
-  /* counters: final values ship in the HTML. Animation is enhancement only. */
-  function count(el){
-    var to = +el.dataset.to, suf = el.dataset.suffix || '';
-    if (reduce){ el.textContent = to + suf; return; }
-    el.textContent = '0';
-    var start;
-    function go(t){
-      if (start === undefined) start = t;
-      var p = Math.min((t - start) / 1100, 1);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + suf;
-      if (p < 1) requestAnimationFrame(go);
-    }
-    requestAnimationFrame(go);
-  }
+  /* Stats ship with final values in HTML. Never wipe them to 0.
+     Optional polish: a soft scale pulse when the band enters view. */
   var statEls = [].slice.call(document.querySelectorAll('.t-item b[data-to]'));
+  statEls.forEach(function(el){
+    var to = +el.dataset.to, suf = el.dataset.suffix || '';
+    el.textContent = to + suf;
+  });
   if (!reduce && 'IntersectionObserver' in window){
     var ioStats = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (!e.isIntersecting) return; count(e.target); ioStats.unobserve(e.target); });
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.style.transition = 'transform .55s cubic-bezier(.22,1,.36,1)';
+        e.target.style.transform = 'scale(1.06)';
+        setTimeout(function(){ e.target.style.transform = ''; }, 560);
+        ioStats.unobserve(e.target);
+      });
     }, { rootMargin: '0px 0px -40px 0px' });
     statEls.forEach(function(el){ ioStats.observe(el); });
   }
