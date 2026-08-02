@@ -317,7 +317,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
       <a href="#clients">Clients</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="ncall" href="tel:1300000000">1300 000 000</a>
+    <a class="ncall" href="tel:+611300000000">1300 000 000</a>
   </div>
 </nav>
 
@@ -329,7 +329,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
       <h1 class="rv">Know the property before it becomes <em>yours.</em></h1>
       <p class="lede rv">Fourteen licensed inspectors across four states. One considered reporting standard, one straightforward phone number.</p>
       <div class="acts rv">
-        <a class="btn btn-mint" href="tel:1300000000">Call Meridian now<small>1300 000 000 · SEVEN DAYS</small></a>
+        <a class="btn btn-mint" href="tel:+611300000000">Call Meridian now<small>1300 000 000 · SEVEN DAYS</small></a>
         <a class="btn btn-glass" href="#coverage">See coverage areas<small>ADELAIDE · MELBOURNE · SYDNEY · BRISBANE</small></a>
       </div>
 
@@ -359,10 +359,10 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
   </div>
   <div class="trust">
     <div class="wrap" aria-label="Meridian at a glance">
-      <div class="t-item rv"><b data-to="14">0</b><span>Licensed inspectors on the road</span></div>
-      <div class="t-item rv"><b data-to="4">0</b><span>States, one reporting standard</span></div>
-      <div class="t-item rv"><b data-to="24" data-suffix="h">0</b><span>Report in your inbox, every job</span></div>
-      <div class="t-item rv"><b data-to="1">0</b><span>Phone number, wherever it is</span></div>
+      <div class="t-item rv"><b data-to="14">14</b><span>Licensed inspectors on the road</span></div>
+      <div class="t-item rv"><b data-to="4">4</b><span>States, one reporting standard</span></div>
+      <div class="t-item rv"><b data-to="24" data-suffix="h">24h</b><span>Report in your inbox, every job</span></div>
+      <div class="t-item rv"><b data-to="1">1</b><span>Phone number, wherever it is</span></div>
     </div>
   </div>
 </header>
@@ -395,10 +395,10 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     </div>
 
     <div class="stabs" role="tablist" aria-label="State coverage">
-      <button class="stab" role="tab" aria-selected="true" aria-controls="sp-sa" id="tb-sa">South Australia</button>
-      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-vic" id="tb-vic">Victoria</button>
-      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-nsw" id="tb-nsw">New South Wales</button>
-      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-qld" id="tb-qld">Queensland</button>
+      <button class="stab" role="tab" aria-selected="true" aria-controls="sp-sa" id="tb-sa" tabindex="0">South Australia</button>
+      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-vic" id="tb-vic" tabindex="-1">Victoria</button>
+      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-nsw" id="tb-nsw" tabindex="-1">New South Wales</button>
+      <button class="stab" role="tab" aria-selected="false" aria-controls="sp-qld" id="tb-qld" tabindex="-1">Queensland</button>
     </div>
 
     <div class="spanel on" id="sp-sa" role="tabpanel" aria-labelledby="tb-sa">
@@ -546,7 +546,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
       <p class="kick" style="color:var(--mint)">Speak with Meridian</p>
       <h2>One number, wherever the property is.</h2>
       <p class="sub">Tell us the address and we will route you to the inspector who covers it.</p>
-      <a class="phone" href="tel:1300000000">1300 000 000</a>
+      <a class="phone" href="tel:+611300000000">1300 000 000</a>
       <p class="c-meta">Seven days · 7am – 8pm AEST</p>
       <p class="c-mail">Or email <a href="mailto:hello@meridian-inspections.example">hello@meridian-inspections.example</a></p>
     </div>
@@ -583,7 +583,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
       <div class="f-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="tel:1300000000">1300 000 000</a></li>
+          <li><a href="tel:+611300000000">1300 000 000</a></li>
           <li><a href="mailto:hello@meridian-inspections.example">hello@meridian-inspections.example</a></li>
           <li>Seven days · 7am – 8pm AEST</li>
         </ul>
@@ -633,6 +633,7 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     tabs.forEach(function(t){
       var on = t.id === 'tb-' + k;
       t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
       var p = document.getElementById(t.getAttribute('aria-controls'));
       p.classList.toggle('on', on);
       p.toggleAttribute('hidden', !on);
@@ -684,10 +685,11 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     });
   });
 
-  /* animated counters */
+  /* counters: final values ship in the HTML. Animation is enhancement only. */
   function count(el){
     var to = +el.dataset.to, suf = el.dataset.suffix || '';
     if (reduce){ el.textContent = to + suf; return; }
+    el.textContent = '0';
     var start;
     function go(t){
       if (start === undefined) start = t;
@@ -698,13 +700,11 @@ footer{background:#eaf1ea;border-top:1px solid var(--line);padding:clamp(3rem,6v
     requestAnimationFrame(go);
   }
   var statEls = [].slice.call(document.querySelectorAll('.t-item b[data-to]'));
-  if ('IntersectionObserver' in window){
+  if (!reduce && 'IntersectionObserver' in window){
     var ioStats = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if (!e.isIntersecting) return; count(e.target); ioStats.unobserve(e.target); });
     }, { rootMargin: '0px 0px -40px 0px' });
     statEls.forEach(function(el){ ioStats.observe(el); });
-  } else {
-    statEls.forEach(function(el){ el.textContent = el.dataset.to + (el.dataset.suffix || ''); });
   }
 
   /* timeline lit */
