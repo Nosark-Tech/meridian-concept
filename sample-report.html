@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sample inspection report — Meridian Property Inspections — Reference Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --indigo:#232840; --cloud:#F4F5F7; --cobalt:#2F5BEA; --grey:#5D6478; --paper:#fff;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--cloud);color:var(--indigo);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.03em;line-height:1.05}
+
+.bar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #DDE0E7}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px}
+.back{font-family:var(--display);font-weight:600;font-size:16px;text-decoration:none}
+.back span{color:var(--cobalt);margin-right:8px}
+.bar-call{background:var(--cobalt);color:#fff;font-weight:600;font-size:15px;padding:11px 16px;text-decoration:none;border-radius:6px}
+
+.masthead{background:var(--indigo);color:var(--cloud);padding:56px 0 62px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:#9AA6D6;margin-bottom:18px}
+h1{font-weight:800;font-size:clamp(32px,5vw,48px);max-width:16ch}
+.masthead p{margin-top:16px;color:#C0C6DA;max-width:54ch}
+
+.doc{background:var(--paper);margin:-30px auto 0;box-shadow:0 24px 50px rgba(0,0,0,.18);border-radius:10px;overflow:hidden}
+.doc-head{border-bottom:3px solid var(--indigo);padding:24px 32px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.doc-head strong{font-size:20px;display:block}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--grey);line-height:1.9}
+.block{padding:28px 32px;border-bottom:1px solid #E7E9EE}
+.block h2{font-size:20px;font-weight:800;margin-bottom:6px}
+.lead{color:var(--grey);font-size:15.5px;margin-bottom:18px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.kv span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--grey);margin-bottom:4px}
+.kv b{font-family:var(--display);font-size:16px;font-weight:600}
+.tally{display:flex;gap:2px;background:#E7E9EE;margin-bottom:18px;border-radius:6px;overflow:hidden}
+.tally div{background:var(--paper);padding:14px 16px;flex:1}
+.tally b{font-family:var(--mono);font-size:26px;display:block}
+.tally span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--grey)}
+.tally .major b{color:var(--cobalt)}
+.entry{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:20px 0;border-bottom:1px solid #E7E9EE}
+.entry:last-child{border-bottom:0}
+@media(max-width:640px){.entry{grid-template-columns:1fr}}
+.shot{width:100%;aspect-ratio:4/3;border:1px solid #E7E9EE;border-radius:6px;position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#E7E9EE 0 8px,#F4F5F7 8px 16px)}
+.shot span{position:absolute;inset:auto 0 0 0;background:var(--indigo);color:var(--cloud);font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-align:center;padding:4px 0}
+.entry h3{font-size:18px;font-weight:600}
+.ref{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--grey);margin-bottom:6px}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:4px 8px;border-radius:3px;margin-left:8px;vertical-align:middle;background:#E8EEFF;color:var(--cobalt)}
+.entry dl{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15.5px}
+.entry dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--grey);padding-top:4px}
+.limits li{margin-left:18px;padding:5px 0;font-size:15.5px}
+.terms{background:var(--cloud);padding:22px 32px;font-size:14.5px;color:var(--grey)}
+
+.cta{background:var(--indigo);color:var(--cloud);padding:64px 0;margin-top:56px}
+.cta h2{font-size:clamp(26px,4vw,38px);font-weight:800}
+.phone{display:inline-block;font-family:var(--mono);font-weight:600;font-size:clamp(28px,5.5vw,46px);color:#8FA6FF;text-decoration:none;margin-top:20px}
+footer{background:#191D30;color:#7E86A0;padding:32px 0;font-size:13px}
+.disc{margin-top:16px;padding-top:14px;border-top:1px solid rgba(244,245,247,.1);font-size:12.5px;max-width:74ch;line-height:1.6}
+.tag{position:fixed;left:14px;bottom:14px;z-index:60;background:var(--cobalt);color:#fff;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:7px 11px;border-radius:4px}
+@media(max-width:600px){.tag{display:none}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="back" href="index.html"><span>&larr;</span>Meridian Property Inspections</a>
+  <a class="bar-call" href="tel:+611300000000">1300 000 000</a>
+</div></div>
+
+<header class="masthead"><div class="wrap">
+  <div class="eyebrow">SAMPLE REPORT · ADDRESS AND OWNER DETAILS REMOVED</div>
+  <h1>This is what lands in your inbox.</h1>
+  <p>Same report format in Adelaide, Melbourne, Sydney and Brisbane. Read it before you book.</p>
+</div></header>
+
+<main class="wrap">
+  <article class="doc">
+    <div class="doc-head">
+      <div>
+        <strong>Pre-Purchase Building &amp; Timber Pest Report</strong>
+        <span class="meta">MERIDIAN PROPERTY INSPECTIONS · DEMONSTRATION</span>
+      </div>
+      <div class="meta">
+        REPORT No. MER-DEMO-0091<br>
+        STATE: VIC · INSPECTOR: DEMO<br>
+        AS 4349.1 &amp; AS 4349.3
+      </div>
+    </div>
+
+    <section class="block">
+      <h2>The property</h2>
+      <p class="lead">Recorded on the day, so you can check the report matches the house you're buying.</p>
+      <div class="kv">
+        <div><span>PROPERTY TYPE</span><b>Double-storey brick</b></div>
+        <div><span>APPROX. YEAR BUILT</span><b>1988</b></div>
+        <div><span>ROOF</span><b>Concrete tile</b></div>
+        <div><span>WEATHER ON THE DAY</span><b>Showers earlier, dry at inspection</b></div>
+        <div><span>OCCUPIED</span><b>Vacant</b></div>
+        <div><span>TIME ON SITE</span><b>2 hours 50 minutes</b></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>What it comes to</h2>
+      <p class="lead">The summary page. If you read nothing else, read this one.</p>
+      <div class="tally">
+        <div class="major"><b>3</b><span>MAJOR DEFECTS</span></div>
+        <div><b>10</b><span>MINOR DEFECTS</span></div>
+        <div><b>1</b><span>SAFETY HAZARD</span></div>
+        <div><b>1</b><span>TIMBER PEST FINDING</span></div>
+      </div>
+      <p>The retaining wall and the roof leak are independent. Price both before settlement. The termite mudding is inactive; the restricted subfloor vents are the ongoing risk. None of this makes the house a poor buy — it makes it a house with three known jobs.</p>
+    </section>
+
+    <section class="block">
+      <h2>Major defects</h2>
+      <p class="lead">Each one photographed, located, and described in the words you'd use to get a quote.</p>
+
+      <div class="entry">
+        <div class="shot"><span>PHOTO 2.4 · REAR BOUNDARY</span></div>
+        <div>
+          <p class="ref">REF 2.4 · SITE</p>
+          <h3>Retaining wall lean<span class="pill">MAJOR</span></h3>
+          <dl>
+            <dt>WHERE</dt><dd>Rear boundary, timber sleeper wall.</dd>
+            <dt>WHAT I FOUND</dt><dd>Approximately 100mm lean over a 4.2m run. Posts soft at ground line in two locations. No weep holes.</dd>
+            <dt>WHY IT MATTERS</dt><dd>Progressive failure. A collapse risks the neighbour's fence line and the rear yard levels.</dd>
+            <dt>WHAT NEXT</dt><dd>Structural engineer or licensed retaining-wall contractor before settlement. Budget for full rebuild of that bay.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="shot"><span>PHOTO 3.6 · LIVING CEILING</span></div>
+        <div>
+          <p class="ref">REF 3.6 · ROOF / INTERIOR</p>
+          <h3>Active roof leak<span class="pill">MAJOR</span></h3>
+          <dl>
+            <dt>WHERE</dt><dd>Living-room ceiling, south-east corner; corresponding roof valley above.</dd>
+            <dt>WHAT I FOUND</dt><dd>Water staining and blistered paint. Valley flashing lifted. Underlay damp to touch after overnight rain.</dd>
+            <dt>WHY IT MATTERS</dt><dd>Active water entry. Left alone it spreads into the roof void and plaster.</dd>
+            <dt>WHAT NEXT</dt><dd>Licensed roof plumber. Temporary tarp if rain is forecast before repair.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="shot"><span>PHOTO 5.1 · SUBFLOOR</span></div>
+        <div>
+          <p class="ref">REF 5.1 · TIMBER PESTS (AS 4349.3)</p>
+          <h3>Termite workings<span class="pill">MAJOR</span></h3>
+          <dl>
+            <dt>WHERE</dt><dd>Subfloor, pier 6 on the eastern run.</dd>
+            <dt>WHAT I FOUND</dt><dd>Inactive mudding. No live termites. Subfloor vents painted shut on the east elevation.</dd>
+            <dt>WHY IT MATTERS</dt><dd>The conditions that attracted them remain. Inactive is not clear.</dd>
+            <dt>WHAT NEXT</dt><dd>Pest management plan plus reopen or replace the sealed vents.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>What I could not inspect</h2>
+      <p class="lead">Named plainly, because the gaps matter as much as the findings.</p>
+      <ul class="limits">
+        <li>Inside wall cavities and under fixed floor coverings.</li>
+        <li>Second-storey roof void — hatch sealed by the ceiling lining.</li>
+        <li>Areas behind dense vegetation along the west boundary.</li>
+        <li>Anything under locked garden sheds.</li>
+      </ul>
+    </section>
+
+    <div class="terms">
+      <p><b>How this report is written.</b> Carried out to AS 4349.1 for building and AS 4349.3 for timber pests. Same template in every Meridian state. Visual inspection of readily accessible areas only. Questions: 1300 000 000.</p>
+    </div>
+  </article>
+</main>
+
+<section class="cta"><div class="wrap">
+  <h2>One number. Book yours.</h2>
+  <a class="phone" href="tel:+611300000000">1300 000 000</a>
+</div></section>
+
+<footer><div class="wrap">
+  <div>Meridian Property Inspections — reference concept · Valkyra Labs</div>
+  <p class="disc">Fictional demonstration content. The report on this page is written to show layout and is not a real inspection of a real property. Photograph slots are deliberately blank.</p>
+</div></footer>
+
+<div class="tag">REFERENCE CONCEPT · VALKYRA LABS</div>
+</body>
+</html>
